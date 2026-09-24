@@ -1,0 +1,486 @@
+/* The features page: a sticky contents rail beside one long article, its
+   reference tables and the call to action at the end. */
+
+/* Features page -------------------------------------------------------------
+   A docs layout: a sticky contents rail beside one long article. The app
+   mocks reuse the landing page's .viz pieces, marked .demo to size them. */
+
+.nav-links a[aria-current='page'] {
+  color: var(--text);
+}
+
+.docs {
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+  padding-top: 56px;
+  padding-bottom: 120px;
+}
+
+.toc {
+  position: sticky;
+  top: 84px;
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.toc-box summary {
+  display: none;
+}
+
+.toc-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  margin-bottom: 14px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: var(--text-3);
+}
+
+.toc-filter:focus-within {
+  border-color: rgba(63, 180, 84, 0.55);
+}
+
+.toc-filter input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--text);
+  font: 13px var(--sans);
+}
+
+.toc-filter input::placeholder {
+  color: var(--text-3);
+}
+
+.toc nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.toc-group {
+  margin: 16px 0 6px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.toc-group:first-child {
+  margin-top: 0;
+}
+
+.toc nav a {
+  padding: 4px 0 4px 12px;
+  border-left: 1px solid var(--line-2);
+  font-size: 14px;
+  color: var(--text-2);
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.toc nav a:hover {
+  color: var(--text);
+}
+
+.toc nav a.on {
+  color: var(--accent-2);
+  border-left-color: var(--accent);
+}
+
+.toc [hidden] {
+  display: none;
+}
+
+.toc-empty {
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.doc {
+  min-width: 0;
+  max-width: 760px;
+}
+
+.doc-title {
+  margin-top: 16px;
+  font-size: clamp(32px, 4.4vw, 50px);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+}
+
+.doc-part {
+  margin: 80px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font: 500 13px/1 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.feature {
+  padding-top: 40px;
+}
+
+.feature h3 {
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+
+.feature h3 + p {
+  margin-top: 12px;
+}
+
+.feature p {
+  margin-top: 16px;
+  color: var(--text-2);
+  font-size: 16px;
+}
+
+.feature b {
+  color: var(--text);
+  font-weight: 550;
+}
+
+.feature em {
+  font-style: normal;
+  color: var(--text);
+}
+
+.feature a:not(.btn) {
+  color: var(--accent-2);
+  text-decoration: underline;
+  text-decoration-color: rgba(108, 212, 127, 0.35);
+  text-underline-offset: 3px;
+}
+
+.feature code,
+.ref code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(232, 223, 201, 0.07);
+  font: 0.86em var(--mono);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.feature .kbd {
+  font-size: 12px;
+  min-width: 22px;
+  height: 22px;
+  margin: 0 1px;
+  vertical-align: 1px;
+}
+
+.inline-ic {
+  display: inline-flex;
+  vertical-align: -2px;
+  color: var(--blue);
+}
+
+.points {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-2);
+  font-size: 15.5px;
+}
+
+.points li {
+  position: relative;
+  padding-left: 20px;
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.note {
+  padding: 12px 16px;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: rgba(63, 180, 84, 0.06);
+  font-size: 15px !important;
+}
+
+.demo {
+  margin-top: 22px;
+}
+
+.viz.demo {
+  flex: none;
+}
+
+.viz-filter.demo {
+  padding: 16px;
+}
+
+.palette-stage.demo {
+  padding: 28px;
+}
+
+.viz-hist.demo {
+  max-width: 460px;
+}
+
+.viz-chat.demo {
+  max-width: 560px;
+}
+
+/* reference tables: hairline rows, no boxes */
+.ref {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+
+.ref caption {
+  padding-bottom: 8px;
+  text-align: left;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.ref th {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--line-2);
+}
+
+.ref td {
+  padding: 9px 12px 9px 0;
+  vertical-align: top;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.ref td:first-child {
+  width: 34%;
+  color: var(--text);
+}
+
+.ref .dim {
+  color: var(--text-3);
+}
+
+.keys-ref td:first-child {
+  width: 150px;
+  white-space: nowrap;
+}
+
+.shortcut-groups {
+  display: grid;
+  gap: 12px;
+}
+
+.shortcut-groups .ref {
+  margin-top: 18px;
+}
+
+.stars {
+  color: var(--amber);
+  letter-spacing: 1px;
+}
+
+.stars span {
+  opacity: 0.25;
+}
+
+.bar {
+  display: inline-block;
+  width: 72px;
+  height: 6px;
+  margin-right: 4px;
+  border-radius: 3px;
+  background: var(--a-hover);
+  vertical-align: 2px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.snippet {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--app-bg);
+  color: var(--app-text);
+  font: 12.5px/1.65 var(--mono);
+  overflow-x: auto;
+}
+
+/* the grid's own cell styles, side by side */
+.values {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--a-line);
+}
+
+.values div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 12px;
+  background: var(--a-bg);
+}
+
+.values span {
+  height: 20px;
+  font: 12.5px/20px var(--a-mono);
+  color: var(--a-text);
+}
+
+.values small {
+  font-size: 11.5px;
+  color: var(--a-dim);
+  line-height: 1.35;
+}
+
+.values .v-null {
+  color: var(--a-dim);
+  font-style: italic;
+}
+
+.values .v-empty {
+  width: 28px;
+  border: 1px dashed var(--a-border);
+  border-radius: 3px;
+}
+
+.values .v-text::before,
+.values .v-text::after {
+  content: '"';
+  color: var(--a-dim);
+}
+
+.values .v-bool {
+  color: var(--purple);
+}
+
+.values .v-num {
+  color: #d19a66;
+}
+
+.doc-cta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 88px;
+  padding: 22px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(63, 180, 84, 0.1), rgba(17, 26, 23, 0.8));
+}
+
+.doc-cta img {
+  border-radius: 11px;
+}
+
+.doc-cta div {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.doc-cta span {
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+@media (max-width: 960px) {
+  .docs {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 24px;
+  }
+  .toc {
+    position: sticky;
+    top: 60px;
+    z-index: 10;
+    max-height: none;
+    overflow: visible;
+    margin: 0 -24px;
+    padding: 0 24px;
+    background: rgba(10, 16, 14, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toc-box summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    font-size: 14px;
+    color: var(--text-2);
+    cursor: pointer;
+    list-style: none;
+  }
+  .toc-box summary::-webkit-details-marker {
+    display: none;
+  }
+  .toc-box[open] summary .ic {
+    transform: rotate(180deg);
+  }
+  .toc-box[open] nav {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-bottom: 16px;
+  }
+  .doc-head {
+    padding-top: 32px;
+  }
+  .values {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .toc {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+  .values {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .doc-cta {
+    flex-wrap: wrap;
+  }
+  .keys-ref td:first-child {
+    width: 120px;
+  }
+}

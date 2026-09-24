@@ -1,0 +1,62 @@
+/* The sticky top bar, shared by every page. */
+
+/* Nav ---------------------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  background: rgba(10, 16, 14, 0.72);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 60px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand img {
+  border-radius: 7px;
+}
+
+.brand.small {
+  gap: 8px;
+  font-size: 14px;
+}
+
+.brand.small img {
+  border-radius: 5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 26px;
+  margin-right: auto;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 680px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-inner {
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FairwayDB — The Postgres client for people who live in their database</title>
+    <meta
+      name="description"
+      content="A fast, keyboard-first desktop client for PostgreSQL. Filter and edit rows without writing SQL, walk foreign keys, and ask an assistant that can see your schema. Free for macOS, Windows and Linux."
+    />
+    <meta name="theme-color" content="#0a100e" />
+    <meta property="og:title" content="FairwayDB" />
+    <meta property="og:description" content="The Postgres client for people who live in their database." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/icon.png" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/viz.css" />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <script src="js/icons.js"></script>
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="#top" aria-label="FairwayDB home">
+          <img src="assets/icon.png" alt="" width="28" height="28" />
+          <span>FairwayDB</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="features.html">Features</a>
+          <a href="#keyboard">Keyboard</a>
+          <a href="#privacy">Privacy</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases" class="nav-gh">GitHub</a>
+        </nav>
+        <a class="btn btn-sm btn-primary" href="#download">Download</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Hero ---------------------------------------------------------------->
+      <section class="hero">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="wrap hero-copy">
+          <a class="pill" href="#download">
+            <span class="pill-dot"></span>
+            <span data-version>Free for macOS, Windows and Linux</span>
+          </a>
+          <h1>The Postgres client for people who <em>live</em> in their database.</h1>
+          <p class="lede">
+            Browse, filter and edit rows without writing SQL. Walk foreign keys, stage changes into one
+            transaction, and ask an assistant that can actually see your schema — in a dark, dense UI that
+            stays out of the way.
+          </p>
+          <div class="cta">
+            <a class="btn btn-lg btn-primary" href="#download" data-primary-download>
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14" />
+              </svg>
+              <span data-primary-label>Download</span>
+            </a>
+            <a class="btn btn-lg btn-ghost" href="https://github.com/vahagnsarg/FairwayDB-releases">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"
+                />
+              </svg>
+              Star on GitHub
+            </a>
+          </div>
+          <p class="fine" data-platform-note>Also for Windows and Linux · MIT licensed</p>
+        </div>
+
+        <!-- The app, drawn in HTML from its own layout and tokens so it stays crisp at any size. -->
+        <div class="wrap">
+          <div class="app" role="img" aria-label="FairwayDB with a filtered orders table open">
+            <div class="app-titlebar">
+              <span class="lights"><i></i><i></i><i></i></span>
+              <span class="app-title">FairwayDB</span>
+              <span class="app-title-actions"
+                ><svg class="ic"><use href="#i-sun" /></svg
+              ></span>
+            </div>
+            <div class="app-body">
+              <aside class="app-side">
+                <div class="side-row">
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-house" /></svg
+                  ></span>
+                  <span class="aselect"
+                    ><i class="cdot"></i>shop_prod · 2 tabs<svg class="ic dd">
+                      <use href="#i-chevron-down" /></svg
+                  ></span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-plus" /></svg
+                  ></span>
+                </div>
+                <div class="side-row">
+                  <span class="abtn wide">Disconnect</span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-package" /></svg
+                  ></span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-pencil" /></svg
+                  ></span>
+                  <span class="abtn danger"
+                    ><svg class="ic"><use href="#i-trash" /></svg
+                  ></span>
+                </div>
+                <div class="side-row">
+                  <span class="aselect"
+                    >public<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                  ></span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-network" /></svg
+                  ></span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-download" /></svg
+                  ></span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-refresh-cw" /></svg
+                  ></span>
+                </div>
+                <div class="ainput">Filter 11 entities…</div>
+                <div class="side-head">Entities <span class="count">11</span></div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>accounts</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>addresses</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>categories</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>customers</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>invoices</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>line_items</span>
+                </div>
+                <div class="entity active">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>orders</span
+                  ><span class="pin"
+                    ><svg class="ic"><use href="#i-bookmark" /></svg
+                  ></span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>payments</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>products</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>refunds</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>shipments</span>
+                </div>
+              </aside>
+              <div class="app-main">
+                <div class="app-tabbar">
+                  <span class="ws-conn"><i class="cdot"></i>shop_prod</span>
+                  <span class="atab active"
+                    ><svg class="ic"><use href="#i-table" /></svg>orders<svg class="ic close">
+                      <use href="#i-x" /></svg
+                  ></span>
+                  <span class="atab"
+                    ><svg class="ic"><use href="#i-table" /></svg>customers<svg class="ic close">
+                      <use href="#i-x" /></svg
+                  ></span>
+                  <span class="atab add"
+                    ><svg class="ic"><use href="#i-plus" /></svg>SQL</span
+                  >
+                  <span class="spacer"></span>
+                  <span class="tab-icon"
+                    ><svg class="ic"><use href="#i-search" /></svg
+                  ></span>
+                  <span class="tab-icon"
+                    ><svg class="ic"><use href="#i-sparkles" /></svg
+                  ></span>
+                </div>
+                <div class="omnibox">
+                  <svg class="ic"><use href="#i-search" /></svg
+                  ><span class="ainput grow">Search all columns… (try name:ham or qty:&gt;20)</span
+                  ><svg class="ic"><use href="#i-circle-help" /></svg>
+                </div>
+                <div class="filters">
+                  <div class="fline">
+                    <span class="flead"
+                      ><svg class="ic"><use href="#i-funnel" /></svg
+                    ></span>
+                    <span class="aselect col"
+                      >status<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                    ></span>
+                    <span class="aselect op"
+                      >is one of<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                    ></span>
+                    <span class="ainput val"
+                      ><span class="vchip">shipped</span><span class="vchip">delivered</span></span
+                    >
+                    <span class="abtn"
+                      ><svg class="ic"><use href="#i-minus" /></svg
+                    ></span>
+                    <span class="abtn"
+                      ><svg class="ic"><use href="#i-plus" /></svg
+                    ></span>
+                    <span class="run"></span>
+                  </div>
+                  <div class="fline">
+                    <span class="flead join">AND</span>
+                    <span class="aselect col"
+                      >total<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                    ></span>
+                    <span class="aselect op"
+                      >greater than<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                    ></span>
+                    <span class="ainput val mono">100</span>
+                    <span class="abtn"
+                      ><svg class="ic"><use href="#i-minus" /></svg
+                    ></span>
+                    <span class="abtn"
+                      ><svg class="ic"><use href="#i-plus" /></svg
+                    ></span>
+                    <span class="run go"
+                      ><svg class="ic"><use href="#i-search" /></svg
+                    ></span>
+                  </div>
+                  <span class="abtn text sm"
+                    ><svg class="ic"><use href="#i-bookmark" /></svg>Save filter</span
+                  >
+                </div>
+                <div class="grid-wrap">
+                  <table class="agrid">
+                    <thead>
+                      <tr>
+                        <th class="rownum">
+                          <svg class="ic"><use href="#i-columns-3" /></svg>
+                        </th>
+                        <th><span class="tname">id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">customer_id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">status</span><span class="ttype">order_status</span></th>
+                        <th><span class="tname">total</span><span class="ttype">numeric</span></th>
+                        <th><span class="tname">delivered_at</span><span class="ttype">timestamptz</span></th>
+                        <th><span class="tname">meta</span><span class="ttype">jsonb</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rownum">1</td>
+                        <td class="mono-cell">10482</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">249.00</td>
+                        <td class="mono-cell">2026-09-18 14:02:11+00</td>
+                        <td class="json">{"gift": true}</td>
+                      </tr>
+                      <tr class="selected">
+                        <td class="rownum">2</td>
+                        <td class="mono-cell">10481</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell cell-modified">1120.50</td>
+                        <td class="null">NULL</td>
+                        <td class="json">{"priority": "high"}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">3</td>
+                        <td class="mono-cell">10479</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">312.40</td>
+                        <td class="mono-cell">2026-09-17 09:41:52+00</td>
+                        <td class="json">{}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">4</td>
+                        <td class="mono-cell">10476</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">158.99</td>
+                        <td class="null">NULL</td>
+                        <td class="json">{"coupon": "FALL26"}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">5</td>
+                        <td class="mono-cell">10470</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">104.00</td>
+                        <td class="mono-cell">2026-09-15 17:20:40+00</td>
+                        <td class="json">{"gift": false}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">6</td>
+                        <td class="mono-cell">10466</td>
+                        <td class="mono-cell">
+                          113<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">640.25</td>
+                        <td class="null">NULL</td>
+                        <td class="json">{"split": 2}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">7</td>
+                        <td class="mono-cell">10461</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">189.90</td>
+                        <td class="mono-cell">2026-09-13 08:55:19+00</td>
+                        <td class="json">{}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">8</td>
+                        <td class="mono-cell">10457</td>
+                        <td class="mono-cell">
+                          91<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">172.00</td>
+                        <td class="null">NULL</td>
+                        <td class="json">{"gift": true}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">9</td>
+                        <td class="mono-cell">10452</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">415.10</td>
+                        <td class="mono-cell">2026-09-11 10:02:45+00</td>
+                        <td class="json">{}</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">10</td>
+                        <td class="mono-cell">10448</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">198.35</td>
+                        <td class="mono-cell">2026-09-10 13:47:30+00</td>
+                        <td class="json">{"coupon": "WELCOME"}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pager">
+                  <span class="abtn text">Count</span>
+                  <span class="abtn text"
+                    ><svg class="ic"><use href="#i-plus" /></svg>Row</span
+                  >
+                  <span class="abtn text"
+                    ><svg class="ic"><use href="#i-refresh-cw" /></svg>Refresh</span
+                  >
+                  <span class="abtn text primary">Apply 1 change</span>
+                  <span class="spacer"></span>
+                  <span class="pnav"
+                    ><svg class="ic"><use href="#i-chevron-first" /></svg
+                    ><svg class="ic"><use href="#i-chevron-left" /></svg
+                    ><svg class="ic"><use href="#i-chevron-right" /></svg
+                  ></span>
+                  <span class="dim">Page 1 · rows 1–50</span>
+                  <span class="spacer"></span>
+                  <span class="dim">public.orders · pk: id</span>
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-ellipsis" /></svg
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="app-status">
+              <span><i class="cdot"></i>app@db.internal:5432/shop_prod · connected</span>
+              <span>50 rows in 6ms</span>
+              <span class="spacer"></span>
+              <span
+                ><svg class="ic"><use href="#i-keyboard" /></svg>Shortcuts</span
+              >
+              <span
+                ><svg class="ic"><use href="#i-refresh-cw" /></svg>Refresh metadata</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features ------------------------------------------------------------>
+      <section class="section" id="features">
+        <div class="wrap">
+          <p class="eyebrow">Features</p>
+          <h2>Everything you reach for, one keystroke away.</h2>
+          <p class="section-lede">
+            Built for the hundred-column table, the jsonb blob and the foreign key you need to follow right
+            now — not for the demo database.
+          </p>
+
+          <div class="bento">
+            <article class="card wide">
+              <div class="card-copy">
+                <h3>A filter builder that speaks intent</h3>
+                <p>
+                  <em>contains</em>, <em>between</em>, <em>is one of</em>, <em>matches regex</em>. Operators
+                  and editors follow the column's type, values bind as that type so indexes still work, and
+                  filters save for later.
+                </p>
+              </div>
+              <div class="viz viz-filter">
+                <div class="f-row">
+                  <span class="f-col">created_at</span><span class="f-op">between</span
+                  ><span class="f-val mono">2026-09-01</span><span class="f-and">and</span
+                  ><span class="f-val mono">2026-09-30</span>
+                </div>
+                <div class="f-row">
+                  <span class="f-col">email</span><span class="f-op">matches regex</span
+                  ><span class="f-val mono">/@acme\.io$/</span>
+                </div>
+                <div class="f-row">
+                  <span class="f-col">plan</span><span class="f-op">is one of</span
+                  ><span class="f-tag">pro</span><span class="f-tag">team</span
+                  ><span class="f-tag">enterprise</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-copy">
+                <h3>Edits you can review</h3>
+                <p>
+                  Inline edits, inserts, clones and bulk deletes stage up and land in one transactional Apply
+                  — or copy them out as SQL.
+                </p>
+              </div>
+              <div class="viz viz-stage">
+                <table class="mgrid">
+                  <thead>
+                    <tr>
+                      <th class="rownum"></th>
+                      <th>id</th>
+                      <th>status</th>
+                      <th>total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="rownum">1</td>
+                      <td>10482</td>
+                      <td>delivered</td>
+                      <td>249.00</td>
+                    </tr>
+                    <tr>
+                      <td class="rownum">2</td>
+                      <td>10481</td>
+                      <td class="mod">shipped</td>
+                      <td class="mod">1120.50</td>
+                    </tr>
+                    <tr class="deleted">
+                      <td class="rownum">3</td>
+                      <td>10433</td>
+                      <td>cancelled</td>
+                      <td>61.20</td>
+                    </tr>
+                    <tr class="added">
+                      <td class="rownum">+</td>
+                      <td class="null">auto</td>
+                      <td>pending</td>
+                      <td>89.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="s-foot">
+                  <span>4 changes staged</span>
+                  <span class="spacer"></span>
+                  <span class="abtn text sm"
+                    ><svg class="ic"><use href="#i-copy" /></svg>SQL</span
+                  >
+                  <span class="abtn text sm primary">Apply</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-copy">
+                <h3>JSON that reads as JSON</h3>
+                <p>
+                  A real tree for json and jsonb, with folding, a /regex/ filter, copy-path and in-place
+                  editing.
+                </p>
+              </div>
+              <pre class="viz viz-json"><span class="p">{</span>
+  <span class="k">"customer"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">"id"</span><span class="p">:</span> <span class="n">4812</span><span class="p">,</span>
+    <span class="k">"tier"</span><span class="p">:</span> <span class="s">"gold"</span><span class="p">,</span>
+    <span class="k">"verified"</span><span class="p">:</span> <span class="b">true</span>
+  <span class="p">},</span>
+  <span class="k">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s">"gift"</span><span class="p">,</span> <span class="s">"rush"</span><span class="p">],</span>
+  <span class="k">"note"</span><span class="p">:</span> <span class="b">null</span>
+<span class="p">}</span></pre>
+            </article>
+
+            <article class="card wide">
+              <div class="card-copy">
+                <h3>Follow a row wherever it goes</h3>
+                <p>
+                  Start from one record and see everything linked to it — children below, their parents above,
+                  join tables folded into direct links. Or lay the whole schema out as an ERD.
+                </p>
+              </div>
+              <div class="viz viz-graph">
+                <svg viewBox="0 0 460 206" aria-hidden="true">
+                  <g class="edge">
+                    <path d="M130 103 C 160 103, 160 37, 188 37" />
+                    <path d="M130 103 H 188" />
+                    <path d="M130 103 C 160 103, 160 169, 188 169" />
+                  </g>
+                  <g class="edge up">
+                    <path d="M306 37 H 336" />
+                    <path d="M306 169 H 336" />
+                  </g>
+                  <g class="gnode root">
+                    <rect x="14" y="79" width="116" height="48" rx="7" />
+                    <text x="26" y="99" class="t">orders</text>
+                    <text x="26" y="115" class="s">#10481 · shipped</text>
+                  </g>
+                  <g class="gnode">
+                    <rect x="188" y="13" width="118" height="48" rx="7" />
+                    <text x="200" y="33" class="t">line_items</text>
+                    <text x="200" y="49" class="s">3 rows</text>
+                  </g>
+                  <g class="gnode">
+                    <rect x="188" y="79" width="118" height="48" rx="7" />
+                    <text x="200" y="99" class="t">payments</text>
+                    <text x="200" y="115" class="s">1 row</text>
+                  </g>
+                  <g class="gnode">
+                    <rect x="188" y="145" width="118" height="48" rx="7" />
+                    <text x="200" y="165" class="t">shipments</text>
+                    <text x="200" y="181" class="s">2 rows</text>
+                  </g>
+                  <g class="gnode up">
+                    <rect x="336" y="13" width="110" height="48" rx="7" />
+                    <text x="348" y="33" class="t">products</text>
+                    <text x="348" y="49" class="s">3 rows</text>
+                  </g>
+                  <g class="gnode up">
+                    <rect x="336" y="145" width="110" height="48" rx="7" />
+                    <text x="348" y="165" class="t">carriers</text>
+                    <text x="348" y="181" class="s">1 row</text>
+                  </g>
+                </svg>
+              </div>
+            </article>
+
+            <article class="card wide assistant-card">
+              <div class="card-copy">
+                <h3>An assistant that sees your schema</h3>
+                <p>
+                  Ask in plain English. It looks up the tables it needs, checks its query against your data in
+                  a read-only transaction, and hands you SQL you can insert or run in one click.
+                </p>
+                <ul class="ticks">
+                  <li>Reads columns, keys and types — never guesses a name</li>
+                  <li>Can only read: every query it runs is <code>READ ONLY</code></li>
+                  <li>Bring your own Anthropic key, or point it at your proxy</li>
+                </ul>
+              </div>
+              <div class="viz viz-chat">
+                <div class="chat-head">
+                  <svg class="ic spark"><use href="#i-sparkles" /></svg><b>Assistant</b
+                  ><span class="spacer"></span><svg class="ic"><use href="#i-x" /></svg>
+                </div>
+                <div class="chat-body">
+                  <div class="bubble me">Who were our top 5 customers by delivered revenue this quarter?</div>
+                  <div class="tools">
+                    <span class="tool"
+                      ><svg class="ic"><use href="#i-wrench" /></svg>describe_table · orders</span
+                    >
+                    <span class="tool"
+                      ><svg class="ic"><use href="#i-wrench" /></svg>describe_table · customers</span
+                    >
+                    <span class="tool"
+                      ><svg class="ic"><use href="#i-wrench" /></svg>run_sql · 5 rows</span
+                    >
+                  </div>
+                  <div class="reply">
+                    <p>
+                      Join <code>orders</code> to <code>customers</code> on <code>customer_id</code> and keep
+                      delivered orders from this quarter:
+                    </p>
+                    <div class="code">
+                      <div class="code-bar">
+                        <span>SQL</span><span class="spacer"></span
+                        ><span class="cbtn"
+                          ><svg class="ic"><use href="#i-copy" /></svg>Copy</span
+                        ><span class="cbtn"
+                          ><svg class="ic"><use href="#i-code" /></svg>Insert</span
+                        ><span class="cbtn"
+                          ><svg class="ic"><use href="#i-play" /></svg>Run</span
+                        >
+                      </div>
+                      <pre><span class="kw">select</span> c.name, <span class="fn">sum</span>(o.total) <span class="kw">as</span> revenue
+<span class="kw">from</span> orders o
+<span class="kw">join</span> customers c <span class="kw">on</span> c.id = o.customer_id
+<span class="kw">where</span> o.status = <span class="str">'delivered'</span>
+  <span class="kw">and</span> o.delivered_at &gt;= <span class="fn">date_trunc</span>(<span class="str">'quarter'</span>, <span class="fn">now</span>())
+<span class="kw">group by</span> c.name
+<span class="kw">order by</span> revenue <span class="kw">desc</span>
+<span class="kw">limit</span> <span class="num">5</span>;</pre>
+                    </div>
+                    <p>
+                      Ada Lovelace leads with <b>$4,812.40</b> across 11 orders, ahead of Grace Hopper at
+                      $3,907.15.
+                    </p>
+                  </div>
+                </div>
+                <div class="chat-input">
+                  Ask about your schema…<span class="send"
+                    ><svg class="ic"><use href="#i-send-horizontal" /></svg
+                  ></span>
+                </div>
+              </div>
+            </article>
+
+            <div class="stack">
+              <article class="card compact">
+                <div class="card-copy">
+                  <h3>Safe mode means safe</h3>
+                  <p>
+                    Mark a connection read-only and every write is refused by the server. Raw SQL runs inside
+                    a read-only transaction, so it's Postgres that says no.
+                  </p>
+                </div>
+                <div class="viz viz-safe">
+                  <div class="safe-line mono"><span class="kw">BEGIN TRANSACTION READ ONLY</span>;</div>
+                  <div class="safe-line mono dim">delete from orders where …</div>
+                  <div class="safe-err mono">ERROR: cannot execute DELETE in a read-only transaction</div>
+                </div>
+              </article>
+              <article class="card compact">
+                <div class="card-copy">
+                  <h3>Every run, remembered</h3>
+                  <p>Failures included, with a /regex/ filter. Click to reload, double-click to run again.</p>
+                </div>
+                <div class="viz viz-hist">
+                  <div class="h-row">
+                    <span class="h-ok"></span><code>select * from orders where status …</code
+                    ><small>6 ms</small>
+                  </div>
+                  <div class="h-row">
+                    <span class="h-err"></span><code>update orders set total = …</code
+                    ><small>read-only</small>
+                  </div>
+                  <div class="h-row">
+                    <span class="h-ok"></span><code>explain analyze select c.name …</code><small>41 ms</small>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <ul class="more">
+            <li>
+              <b>SQL editor</b><span>Schema-aware autocomplete, format, find, and history of every run.</span>
+            </li>
+            <li>
+              <b>Hundred-column tables</b><span>Column layouts, drag to reorder, remembered per table.</span>
+            </li>
+            <li><b>Pinned tables</b><span>Grouped into your own categories, across every schema.</span></li>
+            <li>
+              <b>Values you can trust</b><span>NULL, empty string and the text "NULL" never look alike.</span>
+            </li>
+            <li>
+              <b>Export anything</b><span>CSV, JSON or SQL — a view, a table or a whole schema dump.</span>
+            </li>
+            <li>
+              <b>Workspaces</b><span>One per connection, multiple windows, restored where you left off.</span>
+            </li>
+            <li>
+              <b>Portable setup</b
+              ><span>Move pins, filters, views and saved queries to another database.</span>
+            </li>
+            <li>
+              <b>Proper TLS</b
+              ><span>Certificate verification by default, custom CAs when you need them.</span>
+            </li>
+          </ul>
+          <a class="see-all" href="features.html"
+            >See every feature in detail<svg class="ic"><use href="#i-chevron-right" /></svg
+          ></a>
+        </div>
+      </section>
+
+      <!-- Keyboard ------------------------------------------------------------>
+      <section class="section" id="keyboard">
+        <div class="wrap split">
+          <div>
+            <p class="eyebrow">Keyboard-first</p>
+            <h2>Your hands never leave the keys.</h2>
+            <p class="section-lede">
+              One command palette for actions, tables, columns, saved queries and connections. Every binding
+              lives in one registry, so the cheat sheet behind <span class="kbd">⌘/</span> is always the
+              truth.
+            </p>
+            <dl class="keys">
+              <div>
+                <dt><span class="kbd">⌘</span><span class="kbd">K</span></dt>
+                <dd>Command palette</dd>
+              </div>
+              <div>
+                <dt><span class="kbd">⌘</span><span class="kbd">↵</span></dt>
+                <dd>Run query</dd>
+              </div>
+              <div>
+                <dt><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">F</span></dt>
+                <dd>Format SQL</dd>
+              </div>
+              <div>
+                <dt><span class="kbd">⌘</span><span class="kbd">T</span></dt>
+                <dd>New query tab</dd>
+              </div>
+              <div>
+                <dt><span class="kbd">⌘</span><span class="kbd">R</span></dt>
+                <dd>Refresh the current tab</dd>
+              </div>
+              <div>
+                <dt><span class="kbd">⌘</span><span class="kbd">1</span>–<span class="kbd">9</span></dt>
+                <dd>Jump to tab</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="palette-stage" aria-hidden="true">
+            <div class="apalette" data-palette-demo>
+              <div class="apalette-input"><span data-palette-q>line</span><span class="caret"></span></div>
+              <div class="plist" data-palette-list>
+                <div class="pgroup">Tables</div>
+                <div class="prow on">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span><mark>line</mark>_items</span
+                  ><small>public · 5 cols</small>
+                </div>
+                <div class="prow">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span><mark>line</mark>_item_notes</span
+                  ><small>public · 3 cols</small>
+                </div>
+                <div class="pgroup">Columns</div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-columns-3" /></svg
+                  ><span><mark>line</mark>_items.order_id</span><small>public · column</small>
+                </div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-columns-3" /></svg
+                  ><span><mark>line</mark>_items.product_id</span><small>public · column</small>
+                </div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-columns-3" /></svg
+                  ><span>invoices.<mark>line</mark>_count</span><small>billing · column</small>
+                </div>
+                <div class="pgroup">Saved queries</div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-code" /></svg><span><mark>Line</mark> items by week</span
+                  ><small>select date_trunc('week', o.created_at)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Privacy ------------------------------------------------------------->
+      <section class="section" id="privacy">
+        <div class="wrap">
+          <p class="eyebrow">Local-first</p>
+          <h2>Your data stays on your machine.</h2>
+          <div class="trio">
+            <div>
+              <h3>No account, no cloud</h3>
+              <p>
+                FairwayDB is a desktop app talking straight to your database. There's nothing to sign up for
+                and nothing phoning home.
+              </p>
+            </div>
+            <div>
+              <h3>Sealed secrets</h3>
+              <p>
+                Passwords and API keys are encrypted with AES-256-GCM under a key held by your OS keychain.
+              </p>
+            </div>
+            <div>
+              <h3>Open source</h3>
+              <p>MIT licensed. Read the code, file an issue, or build it yourself with one command.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Download ------------------------------------------------------------>
+      <section class="section download" id="download">
+        <div class="glow small" aria-hidden="true"></div>
+        <div class="wrap">
+          <img class="dl-icon" src="assets/icon.png" alt="" width="88" height="88" />
+          <h2>Get FairwayDB</h2>
+          <p class="section-lede center" data-version-line>Free, for every desktop.</p>
+          <div class="platforms">
+            <a
+              class="platform"
+              data-os="mac"
+              href="https://github.com/vahagnsarg/FairwayDB-releases/releases/latest"
+            >
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8C7 7.3 5.6 8.2 4.8 9.6c-1.7 2.9-.4 7.2 1.2 9.6.8 1.2 1.7 2.4 3 2.4 1.2-.1 1.6-.8 3.1-.8s1.8.8 3.1.8c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.9-1.1-3-4zM14 5.6c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"
+                />
+              </svg>
+              <b>macOS</b>
+              <span data-asset="mac">Apple silicon &amp; Intel · .dmg</span>
+            </a>
+            <a
+              class="platform"
+              data-os="win"
+              href="https://github.com/vahagnsarg/FairwayDB-releases/releases/latest"
+            >
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 5.5 10 4.5v7H3zm8-1.1L21 3v8.5H11zM3 12.5h7v7l-7-1zm8 0h10V21l-10-1.4z" />
+              </svg>
+              <b>Windows</b>
+              <span data-asset="win">Windows 10 and later · .exe</span>
+            </a>
+            <a
+              class="platform"
+              data-os="linux"
+              href="https://github.com/vahagnsarg/FairwayDB-releases/releases/latest"
+            >
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 17V7l8-4 8 4v10l-8 4zM4 7l8 4 8-4M12 11v10" />
+              </svg>
+              <b>Linux</b>
+              <span data-asset="linux">x64 · .AppImage or .tar.gz</span>
+            </a>
+          </div>
+          <p class="fine center">
+            <a href="https://github.com/vahagnsarg/FairwayDB-releases/releases">All releases and checksums</a>
+            ·
+            <a href="https://github.com/vahagnsarg/FairwayDB-releases#development">Build from source</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span class="brand small"><img src="assets/icon.png" alt="" width="20" height="20" />FairwayDB</span>
+        <span class="dim">© 2026 Vahagn Sargsyan · MIT License</span>
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases">GitHub</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases/issues">Issues</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases/releases">Releases</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="js/lib/filter.js" defer></script>
+    <script src="js/lib/html.js" defer></script>
+    <script src="js/lib/motion.js" defer></script>
+    <script src="js/demos/palette.js" defer></script>
+    <script src="js/download.js" defer></script>
+  </body>
+</html>

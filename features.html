@@ -1,0 +1,1936 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Features · FairwayDB</title>
+    <meta
+      name="description"
+      content="A tour of everything FairwayDB does: connections, the schema browser, filters, search, staged edits, the JSON panel, the SQL editor, structure, ERD, related rows, the AI assistant and the keyboard layer."
+    />
+    <meta name="theme-color" content="#0a100e" />
+    <meta property="og:title" content="FairwayDB features" />
+    <meta property="og:description" content="Every part of the Postgres client, one section at a time." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/icon.png" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/viz.css" />
+    <link rel="stylesheet" href="css/docs.css" />
+    <link rel="stylesheet" href="css/examples.css" />
+  </head>
+  <body class="docs-page">
+    <script src="js/icons.js"></script>
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="index.html" aria-label="FairwayDB home">
+          <img src="assets/icon.png" alt="" width="28" height="28" />
+          <span>FairwayDB</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="features.html" aria-current="page">Features</a>
+          <a href="index.html#keyboard">Keyboard</a>
+          <a href="index.html#privacy">Privacy</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases" class="nav-gh">GitHub</a>
+        </nav>
+        <a class="btn btn-sm btn-primary" href="index.html#download">Download</a>
+      </div>
+    </header>
+
+    <main class="wrap docs">
+      <!-- Contents: a sticky rail on desktop, a disclosure above the article on narrow screens. -->
+      <aside class="toc" aria-label="Features">
+        <details class="toc-box" open data-toc>
+          <summary>
+            <span>On this page</span>
+            <svg class="ic"><use href="#i-chevron-down" /></svg>
+          </summary>
+          <label class="toc-filter">
+            <svg class="ic"><use href="#i-search" /></svg>
+            <input type="search" placeholder="Filter sections… or /regex/" data-toc-filter />
+          </label>
+          <nav data-toc-nav>
+            <p class="toc-group">Getting connected</p>
+            <a href="#connections">Connections</a>
+            <a href="#safety">Safe mode &amp; TLS</a>
+            <p class="toc-group">Finding your way</p>
+            <a href="#browser">Schema browser</a>
+            <a href="#pins">Pinned tables</a>
+            <a href="#palette">Command palette</a>
+            <a href="#workspaces">Tabs, workspaces &amp; windows</a>
+            <p class="toc-group">Working with rows</p>
+            <a href="#grid">The data grid</a>
+            <a href="#filters">Filter builder</a>
+            <a href="#search">Search omnibox</a>
+            <a href="#editing">Editing rows</a>
+            <a href="#values">Values you can trust</a>
+            <a href="#json">JSON panel</a>
+            <a href="#links">Foreign keys &amp; magic columns</a>
+            <a href="#export">Export</a>
+            <p class="toc-group">Writing SQL</p>
+            <a href="#editor">SQL editor</a>
+            <a href="#history">History &amp; saved queries</a>
+            <p class="toc-group">Understanding a schema</p>
+            <a href="#structure">Structure</a>
+            <a href="#erd">ERD</a>
+            <a href="#related">Related rows</a>
+            <a href="#assistant">AI assistant</a>
+            <p class="toc-group">Making it yours</p>
+            <a href="#portable">Portable workspaces</a>
+            <a href="#settings">Settings &amp; theme</a>
+            <a href="#shortcuts">Keyboard shortcuts</a>
+            <p class="toc-empty" data-toc-empty hidden>No section matches.</p>
+          </nav>
+        </details>
+      </aside>
+
+      <article class="doc">
+        <header class="doc-head">
+          <p class="eyebrow">Features</p>
+          <h1 class="doc-title">Everything FairwayDB does, one section at a time.</h1>
+          <p class="section-lede">
+            FairwayDB is a desktop client for PostgreSQL, built for people who spend their day in a database.
+            This page walks through each part of the app: what it's for, how to use it, and the details that
+            make it different.
+          </p>
+        </header>
+
+        <!-- Getting connected ================================================= -->
+        <h2 class="doc-part">Getting connected</h2>
+
+        <section class="feature" id="connections">
+          <h3>Connections</h3>
+          <p>
+            The first screen lists your saved and recent connections, each with a colour tag you pick, and a
+            filter box. That colour follows you around: it names the workspace in the tab strip and underlines
+            the status bar, so you always know which database you're typing into.
+          </p>
+          <figure class="example">
+            <div class="mock narrow" aria-hidden="true">
+              <div class="m-head">
+                <b>New Connection</b><span class="spacer"></span><span class="m-link">Import from URL</span>
+              </div>
+              <div class="m-row">
+                <span class="ainput grow mono m-url">postgres://app@db.internal:5432/shop_prod</span
+                ><span class="abtn text">Import</span>
+              </div>
+              <div class="m-form">
+                <label>Name</label><span class="ainput"><i class="cdot"></i>shop_prod</span>
+                <label>Host</label><span class="ainput">db.internal</span> <label>Port</label
+                ><span class="ainput">5432</span> <label>Database</label><span class="ainput">shop_prod</span>
+                <label>User</label><span class="ainput">app</span> <label>SSL</label
+                ><span class="aselect"
+                  >Verify certificate<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                ></span>
+              </div>
+              <div class="m-foot">
+                <span class="m-ok"
+                  ><svg class="ic"><use href="#i-check" /></svg>PostgreSQL 16.4</span
+                ><span class="spacer"></span><span class="m-link">Copy URL</span
+                ><span class="abtn text">Test</span><span class="abtn text primary">Save</span>
+              </div>
+            </div>
+            <figcaption>
+              <em>Import from URL</em> fills in every field. <em>Test</em> reports the server version before
+              anything is saved.
+            </figcaption>
+          </figure>
+          <ul class="points">
+            <li>
+              <b>Import from URL.</b> Paste a <code>postgres://user@host:5432/db</code> string and every field
+              fills in. <em>Copy URL</em> turns a saved connection back into one.
+            </li>
+            <li><b>Test before you save.</b> The form checks the connection before it's stored.</li>
+            <li>
+              <b>Several databases at once.</b> Connect to as many as you like. Every tab remembers which
+              connection it belongs to.
+            </li>
+            <li>
+              <b>Sealed passwords.</b> In the desktop app, passwords are encrypted with AES-256-GCM under a
+              key your OS keychain holds.
+            </li>
+          </ul>
+        </section>
+
+        <section class="feature" id="safety">
+          <h3>Safe mode &amp; TLS</h3>
+          <p>
+            Mark a connection <b>read-only</b> and the server refuses every write: edits, inserts, deletes.
+            Raw SQL on that connection runs inside <code>BEGIN TRANSACTION READ ONLY</code>, so Postgres
+            itself turns a stray <code>DELETE</code> away. The buttons aren't just hidden.
+          </p>
+          <div class="viz viz-safe demo">
+            <div class="safe-line mono"><span class="kw">BEGIN TRANSACTION READ ONLY</span>;</div>
+            <div class="safe-line mono dim">delete from orders where status = 'cancelled';</div>
+            <div class="safe-err mono">ERROR: cannot execute DELETE in a read-only transaction</div>
+          </div>
+          <p>TLS has three modes. New connections start on the strictest one:</p>
+          <table class="ref">
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>What it does</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Verify certificate <code>verify-full</code></td>
+                <td>
+                  Encrypts and checks the server's certificate and host name. Add your own CA when the
+                  certificate isn't publicly signed. This is the default.
+                </td>
+              </tr>
+              <tr>
+                <td>Encrypted only <code>require</code></td>
+                <td>Encrypts, but doesn't verify who's on the other end.</td>
+              </tr>
+              <tr>
+                <td>Disabled <code>disable</code></td>
+                <td>Plain TCP, for a local database.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Finding your way ================================================== -->
+        <h2 class="doc-part">Finding your way</h2>
+
+        <section class="feature" id="browser">
+          <h3>Schema browser</h3>
+          <p>
+            The sidebar lists the tables and views in the current schema with row estimates. Expand a table to
+            see its columns and keys. Inheritance and partition markers mean a child table never passes for a
+            plain one.
+          </p>
+          <figure class="example">
+            <div class="mock m-app tall" aria-hidden="true">
+              <div class="m-side">
+                <div class="side-row">
+                  <span class="aselect"
+                    >public<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                  ></span>
+                </div>
+                <div class="ainput mono">/^(order|invoice)/</div>
+                <div class="side-head">Entities <span class="count">3</span></div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>invoices</span
+                  ><small class="m-est">8.1k</small>
+                </div>
+                <div class="entity active">
+                  <svg class="ic chev"><use href="#i-chevron-down" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>orders</span
+                  ><small class="m-est">12.4k</small>
+                </div>
+                <div class="m-col"><span class="m-key">PK</span>id<small>int4</small></div>
+                <div class="m-col"><span class="m-key fk">FK</span>customer_id<small>int4</small></div>
+                <div class="m-col"><span class="m-key blank"></span>status<small>order_status</small></div>
+                <div class="m-col"><span class="m-key blank"></span>total<small>numeric</small></div>
+                <div class="m-col">
+                  <span class="m-key blank"></span>delivered_at<small>timestamptz</small>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>order_notes</span
+                  ><small class="m-est">310</small>
+                </div>
+              </div>
+              <div class="m-main">
+                <div class="app-tabbar">
+                  <span class="ws-conn"><i class="cdot"></i>shop_prod</span
+                  ><span class="atab active"
+                    ><svg class="ic"><use href="#i-table" /></svg>orders<svg class="ic close">
+                      <use href="#i-x" /></svg></span
+                  ><span class="atab"
+                    ><svg class="ic"><use href="#i-table" /></svg>customers<svg class="ic close">
+                      <use href="#i-x" /></svg
+                  ></span>
+                </div>
+                <div class="omnibox">
+                  <svg class="ic"><use href="#i-search" /></svg
+                  ><span class="ainput grow">Search all columns… (try name:ham or qty:&gt;20)</span>
+                </div>
+                <div class="m-gridwrap">
+                  <table class="agrid m-grid">
+                    <thead>
+                      <tr>
+                        <th class="rownum"></th>
+                        <th><span class="tname">id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">customer_id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">status</span><span class="ttype">order_status</span></th>
+                        <th><span class="tname">total</span><span class="ttype">numeric</span></th>
+                        <th><span class="tname">delivered_at</span><span class="ttype">timestamptz</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rownum">1</td>
+                        <td class="mono-cell">10482</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">249.00</td>
+                        <td class="mono-cell">2026-09-18 14:02</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">2</td>
+                        <td class="mono-cell">10481</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">1120.50</td>
+                        <td class="mono-cell">2026-09-18 11:37</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">3</td>
+                        <td class="mono-cell">10479</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">312.40</td>
+                        <td class="mono-cell">2026-09-17 09:41</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">4</td>
+                        <td class="mono-cell">10476</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">158.99</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">5</td>
+                        <td class="mono-cell">10470</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">104.00</td>
+                        <td class="mono-cell">2026-09-15 17:20</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">6</td>
+                        <td class="mono-cell">10466</td>
+                        <td class="mono-cell">
+                          113<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">640.25</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">7</td>
+                        <td class="mono-cell">10461</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">189.90</td>
+                        <td class="mono-cell">2026-09-13 08:55</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">8</td>
+                        <td class="mono-cell">10457</td>
+                        <td class="mono-cell">
+                          91<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">172.00</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">9</td>
+                        <td class="mono-cell">10452</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">415.10</td>
+                        <td class="mono-cell">2026-09-11 10:02</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">10</td>
+                        <td class="mono-cell">10448</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">198.35</td>
+                        <td class="mono-cell">2026-09-10 13:47</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pager">
+                  <span class="abtn text">Count</span><span class="spacer"></span
+                  ><span class="dim">Page 1 · rows 1–50</span><span class="spacer"></span
+                  ><span class="dim">public.orders · pk: id</span>
+                </div>
+              </div>
+              <div class="m-menu m-float" style="top: 128px; left: 150px">
+                <span>Pin</span><span>Pin to new category…</span>
+                <hr />
+                <span class="on">Open</span><span>View structure</span><span>View ERD</span>
+                <hr />
+                <span>Export as CSV</span><span>Export as JSON</span><span>Export as SQL</span>
+                <hr />
+                <span>Copy name</span><span>Copy qualified name</span>
+              </div>
+            </div>
+            <figcaption>
+              A <code>/regex/</code> narrows the list, <code>orders</code> is expanded to its columns, and
+              right-clicking it opens the table menu.
+            </figcaption>
+          </figure>
+          <ul class="points">
+            <li>
+              <b>Filter the list</b> with plain text or a <code>/regex/</code>, such as
+              <code>/^(order|invoice)/</code>.
+            </li>
+            <li>
+              <b>Right-click any table</b> to open it, view its structure or ERD, export it, or copy its name.
+            </li>
+            <li>
+              <b>Dump a whole schema</b> as SQL in one click: DDL plus <code>INSERT</code>s, with parents
+              before children so it replays cleanly.
+            </li>
+          </ul>
+        </section>
+
+        <section class="feature" id="pins">
+          <h3>Pinned tables</h3>
+          <p>
+            Pin the tables you use every day and they stay at the top of the sidebar. Group them into your own
+            named categories and drag to reorder them. Pins belong to the connection rather than the schema,
+            so a pinned table from <code>billing</code> is still there while you browse <code>public</code>,
+            marked with a dim schema prefix.
+          </p>
+          <figure class="example">
+            <div class="mock m-app" aria-hidden="true">
+              <div class="m-side">
+                <div class="side-row">
+                  <span class="aselect"
+                    >public<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                  ></span>
+                </div>
+                <div class="side-head">Pinned <span class="count">5</span></div>
+                <div class="m-cat">Daily</div>
+                <div class="entity active">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span>orders</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span>customers</span>
+                </div>
+                <div class="m-cat">Billing</div>
+                <div class="entity">
+                  <svg class="ic tbl"><use href="#i-table" /></svg
+                  ><span><span class="m-schema">billing.</span>invoices</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic tbl"><use href="#i-table" /></svg
+                  ><span><span class="m-schema">billing.</span>refunds</span>
+                </div>
+                <div class="m-cat">Uncategorised</div>
+                <div class="entity">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span>payments</span>
+                </div>
+                <div class="side-head">Entities <span class="count">11</span></div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>accounts</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>addresses</span>
+                </div>
+              </div>
+              <div class="m-main">
+                <div class="app-tabbar">
+                  <span class="ws-conn"><i class="cdot"></i>shop_prod</span
+                  ><span class="atab active"
+                    ><svg class="ic"><use href="#i-table" /></svg>orders<svg class="ic close">
+                      <use href="#i-x" /></svg></span
+                  ><span class="atab"
+                    ><svg class="ic"><use href="#i-table" /></svg>customers<svg class="ic close">
+                      <use href="#i-x" /></svg
+                  ></span>
+                </div>
+                <div class="omnibox">
+                  <svg class="ic"><use href="#i-search" /></svg
+                  ><span class="ainput grow">Search all columns… (try name:ham or qty:&gt;20)</span>
+                </div>
+                <div class="m-gridwrap">
+                  <table class="agrid m-grid">
+                    <thead>
+                      <tr>
+                        <th class="rownum"></th>
+                        <th><span class="tname">id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">customer_id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">status</span><span class="ttype">order_status</span></th>
+                        <th><span class="tname">total</span><span class="ttype">numeric</span></th>
+                        <th><span class="tname">delivered_at</span><span class="ttype">timestamptz</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rownum">1</td>
+                        <td class="mono-cell">10482</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">249.00</td>
+                        <td class="mono-cell">2026-09-18 14:02</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">2</td>
+                        <td class="mono-cell">10481</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">1120.50</td>
+                        <td class="mono-cell">2026-09-18 11:37</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">3</td>
+                        <td class="mono-cell">10479</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">312.40</td>
+                        <td class="mono-cell">2026-09-17 09:41</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">4</td>
+                        <td class="mono-cell">10476</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">158.99</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">5</td>
+                        <td class="mono-cell">10470</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">104.00</td>
+                        <td class="mono-cell">2026-09-15 17:20</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">6</td>
+                        <td class="mono-cell">10466</td>
+                        <td class="mono-cell">
+                          113<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">640.25</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">7</td>
+                        <td class="mono-cell">10461</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">189.90</td>
+                        <td class="mono-cell">2026-09-13 08:55</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">8</td>
+                        <td class="mono-cell">10457</td>
+                        <td class="mono-cell">
+                          91<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">172.00</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">9</td>
+                        <td class="mono-cell">10452</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">415.10</td>
+                        <td class="mono-cell">2026-09-11 10:02</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pager">
+                  <span class="abtn text">Count</span><span class="spacer"></span
+                  ><span class="dim">Page 1 · rows 1–50</span><span class="spacer"></span
+                  ><span class="dim">public.orders · pk: id</span>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Two categories and the loose pins, seen while browsing <code>public</code>. Pins from
+              <code>billing</code> carry their schema.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="feature" id="palette">
+          <h3>Command palette</h3>
+          <p>
+            Press <span class="kbd">⌘</span><span class="kbd">K</span> (or <span class="kbd">⌘</span
+            ><span class="kbd">P</span>) and type. One list covers actions, tables, columns, saved queries,
+            connections and schemas, and it takes <code>/regex/</code> too.
+          </p>
+          <div class="palette-stage demo" aria-hidden="true">
+            <div class="apalette" data-palette-demo>
+              <div class="apalette-input"><span data-palette-q>cust</span><span class="caret"></span></div>
+              <div class="plist" data-palette-list>
+                <div class="pgroup">Tables</div>
+                <div class="prow on">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span><mark>cust</mark>omers</span
+                  ><small>public · 9 cols</small>
+                </div>
+                <div class="prow">
+                  <svg class="ic tbl"><use href="#i-table" /></svg><span><mark>cust</mark>omer_notes</span
+                  ><small>public · 4 cols</small>
+                </div>
+                <div class="pgroup">Columns</div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-columns-3" /></svg><span>orders.<mark>cust</mark>omer_id</span
+                  ><small>public · column</small>
+                </div>
+                <div class="pgroup">Saved queries</div>
+                <div class="prow">
+                  <svg class="ic"><use href="#i-code" /></svg
+                  ><span>Top <mark>cust</mark>omers this quarter</span
+                  ><small>select c.name, sum(o.total) as revenue</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature" id="workspaces">
+          <h3>Tabs, workspaces &amp; windows</h3>
+          <p>
+            Each connection is its own workspace. The tab strip shows only the active connection's tabs,
+            headed by its colour chip. Switch connections and that connection's tabs come back as you left
+            them. The connection picker shows how many tabs each one has open.
+          </p>
+          <figure class="example">
+            <div class="mock m-app" aria-hidden="true">
+              <div class="m-side">
+                <div class="side-row">
+                  <span class="abtn"
+                    ><svg class="ic"><use href="#i-house" /></svg></span
+                  ><span class="aselect open"
+                    ><i class="cdot"></i>shop_prod · 3 tabs<svg class="ic dd">
+                      <use href="#i-chevron-down" /></svg></span
+                  ><span class="abtn"
+                    ><svg class="ic"><use href="#i-plus" /></svg
+                  ></span>
+                </div>
+                <div class="side-row">
+                  <span class="aselect"
+                    >public<svg class="ic dd"><use href="#i-chevron-down" /></svg
+                  ></span>
+                </div>
+                <div class="ainput">Filter 11 entities…</div>
+                <div class="side-head">Entities <span class="count">11</span></div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>accounts</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>customers</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>invoices</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>line_items</span>
+                </div>
+                <div class="entity active">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>orders</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>payments</span>
+                </div>
+                <div class="entity">
+                  <svg class="ic chev"><use href="#i-chevron-right" /></svg
+                  ><svg class="ic tbl"><use href="#i-table" /></svg><span>products</span>
+                </div>
+              </div>
+              <div class="m-main">
+                <div class="app-tabbar">
+                  <span class="ws-conn"><i class="cdot"></i>shop_prod</span
+                  ><span class="atab active"
+                    ><svg class="ic"><use href="#i-table" /></svg>orders<svg class="ic close">
+                      <use href="#i-x" /></svg></span
+                  ><span class="atab"
+                    ><svg class="ic"><use href="#i-table" /></svg>customers<svg class="ic close">
+                      <use href="#i-x" /></svg></span
+                  ><span class="atab"
+                    ><svg class="ic"><use href="#i-code" /></svg>Query 1<svg class="ic close">
+                      <use href="#i-x" /></svg
+                  ></span>
+                </div>
+                <div class="omnibox">
+                  <svg class="ic"><use href="#i-search" /></svg
+                  ><span class="ainput grow">Search all columns… (try name:ham or qty:&gt;20)</span>
+                </div>
+                <div class="m-gridwrap">
+                  <table class="agrid m-grid">
+                    <thead>
+                      <tr>
+                        <th class="rownum"></th>
+                        <th><span class="tname">id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">customer_id</span><span class="ttype">int4</span></th>
+                        <th><span class="tname">status</span><span class="ttype">order_status</span></th>
+                        <th><span class="tname">total</span><span class="ttype">numeric</span></th>
+                        <th><span class="tname">delivered_at</span><span class="ttype">timestamptz</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rownum">1</td>
+                        <td class="mono-cell">10482</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">249.00</td>
+                        <td class="mono-cell">2026-09-18 14:02</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">2</td>
+                        <td class="mono-cell">10481</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">1120.50</td>
+                        <td class="mono-cell">2026-09-18 11:37</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">3</td>
+                        <td class="mono-cell">10479</td>
+                        <td class="mono-cell">
+                          42<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">312.40</td>
+                        <td class="mono-cell">2026-09-17 09:41</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">4</td>
+                        <td class="mono-cell">10476</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">158.99</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">5</td>
+                        <td class="mono-cell">10470</td>
+                        <td class="mono-cell">
+                          7<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">104.00</td>
+                        <td class="mono-cell">2026-09-15 17:20</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">6</td>
+                        <td class="mono-cell">10466</td>
+                        <td class="mono-cell">
+                          113<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">640.25</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">7</td>
+                        <td class="mono-cell">10461</td>
+                        <td class="mono-cell">
+                          58<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>delivered</td>
+                        <td class="mono-cell">189.90</td>
+                        <td class="mono-cell">2026-09-13 08:55</td>
+                      </tr>
+                      <tr>
+                        <td class="rownum">8</td>
+                        <td class="mono-cell">10457</td>
+                        <td class="mono-cell">
+                          91<span class="fk-jump"
+                            ><svg class="ic"><use href="#i-external-link" /></svg
+                          ></span>
+                        </td>
+                        <td>shipped</td>
+                        <td class="mono-cell">172.00</td>
+                        <td class="null">NULL</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pager">
+                  <span class="abtn text">Count</span><span class="spacer"></span
+                  ><span class="dim">Page 1 · rows 1–50</span><span class="spacer"></span
+                  ><span class="dim">public.orders · pk: id</span>
+                </div>
+              </div>
+              <div class="m-pick m-float" style="top: 40px; left: 44px">
+                <div class="on"><i class="cdot"></i>shop_prod<small>3 tabs</small></div>
+                <div><i class="cdot" style="background: var(--cyan)"></i>analytics<small>1 tab</small></div>
+                <div><i class="cdot" style="background: var(--purple)"></i>local_dev<small></small></div>
+              </div>
+            </div>
+            <figcaption>
+              The strip shows <code>shop_prod</code>’s three tabs. The connection picker counts the tabs
+              waiting in each workspace; pick <code>analytics</code> and its one tab comes back.
+            </figcaption>
+          </figure>
+          <ul class="points">
+            <li>Tabs survive a reload, reorder by dragging and close on middle-click.</li>
+            <li>
+              <span class="kbd">⌘</span><span class="kbd">1</span>–<span class="kbd">9</span> jump between the
+              tabs of the current workspace.
+            </li>
+            <li>
+              <span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">N</span> opens a new
+              window on the same connection with its own tabs. Pins, layouts and saved filters are shared
+              between windows, and the window layout comes back on the next launch.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Working with rows ================================================= -->
+        <h2 class="doc-part">Working with rows</h2>
+
+        <section class="feature" id="grid">
+          <h3>The data grid</h3>
+          <p>
+            Opening a table shows its rows in a paged grid. Click a header to sort, drag it to reorder, and
+            drag its edge to resize. Column types show beside each name. The layout and the sort you left are
+            remembered for each table.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <table class="agrid m-grid">
+                <thead>
+                  <tr>
+                    <th class="rownum"></th>
+                    <th><span class="tname">id</span><span class="ttype">int4</span></th>
+                    <th><span class="tname">status</span><span class="ttype">order_status</span></th>
+                    <th><span class="tname">total ↓</span><span class="ttype">numeric</span></th>
+                    <th><span class="tname">created_at</span><span class="ttype">timestamptz</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rownum">1</td>
+                    <td class="mono-cell">10481</td>
+                    <td>shipped</td>
+                    <td class="mono-cell">1120.50</td>
+                    <td class="mono-cell">2026-09-18 14:02</td>
+                  </tr>
+                  <tr class="selected">
+                    <td class="rownum">2</td>
+                    <td class="mono-cell">10466</td>
+                    <td>shipped</td>
+                    <td class="mono-cell">640.25</td>
+                    <td class="mono-cell">2026-09-16 11:37</td>
+                  </tr>
+                  <tr class="selected">
+                    <td class="rownum">3</td>
+                    <td class="mono-cell">10452</td>
+                    <td>delivered</td>
+                    <td class="mono-cell">415.10</td>
+                    <td class="mono-cell">2026-09-11 10:02</td>
+                  </tr>
+                  <tr>
+                    <td class="rownum">4</td>
+                    <td class="mono-cell">10479</td>
+                    <td>delivered</td>
+                    <td class="mono-cell">312.40</td>
+                    <td class="mono-cell">2026-09-17 09:41</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pager">
+                <span class="abtn text">Count</span><span class="dim">12,408 rows</span
+                ><span class="spacer"></span><span class="dim">Page 1 · rows 1–50</span>
+              </div>
+            </div>
+            <figcaption>
+              Sorted by <code>total</code> descending, with rows 2–3 selected from the row-number gutter.
+            </figcaption>
+          </figure>
+          <ul class="points">
+            <li>
+              <b>Column layout</b> is built for the hundred-column table. Filter the columns (with
+              <code>/regex/</code>), multi-select, add or remove in bulk, and reorder by dragging or with ↑ ↓
+              ⤒ ⤓.
+            </li>
+            <li>
+              <b>Exact counts on demand.</b> The pager shows row ranges. Press <em>Count</em> when you really
+              want <code>count(*)</code> on a large table.
+            </li>
+            <li>
+              <b>Select rows</b> by clicking row numbers. Shift and ⌘ extend the selection, and dragging down
+              the gutter selects a run.
+            </li>
+          </ul>
+        </section>
+
+        <section class="feature" id="filters">
+          <h3>Filter builder</h3>
+          <p>
+            Build a <code>WHERE</code> clause without writing one. Pick a column, an operator and a value,
+            then chain more lines with <b>AND</b> or <b>OR</b>. Operators are phrased as intent:
+            <em>contains</em> adds its own wildcards, so you never type <code>%</code>.
+          </p>
+          <div class="viz viz-filter demo">
+            <div class="f-row">
+              <span class="f-col">created_at</span><span class="f-op">between</span
+              ><span class="f-val mono">2026-09-01</span><span class="f-and">and</span
+              ><span class="f-val mono">2026-09-30</span>
+            </div>
+            <div class="f-row">
+              <span class="f-col">email</span><span class="f-op">matches regex</span
+              ><span class="f-val mono">/@acme\.io$/</span>
+            </div>
+            <div class="f-row">
+              <span class="f-col">plan</span><span class="f-op">is one of</span><span class="f-tag">pro</span
+              ><span class="f-tag">team</span><span class="f-tag">enterprise</span>
+            </div>
+          </div>
+          <p>
+            The operators and value editors follow the column's type. Booleans and enums get a picker, dates
+            and numbers get typed inputs, and text columns suggest values they actually hold. Values are bound
+            as the column's own type, so <code>&gt;</code> orders numbers and dates correctly and your indexes
+            still apply.
+          </p>
+          <table class="ref">
+            <thead>
+              <tr>
+                <th>Group</th>
+                <th>Operators</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Text</td>
+                <td>
+                  contains · does not contain · starts with · ends with · matches regex
+                  <span class="dim">(case-insensitive POSIX)</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Compare</td>
+                <td>equals · not equals · greater than · less than · at least · at most · between</td>
+              </tr>
+              <tr>
+                <td>Lists</td>
+                <td>is one of</td>
+              </tr>
+              <tr>
+                <td>Empty</td>
+                <td>
+                  is empty <span class="dim">(NULL or blank)</span> · is not empty · is null
+                  <span class="dim">(strictly NULL)</span> · is not null
+                </td>
+              </tr>
+              <tr>
+                <td>Raw SQL</td>
+                <td>LIKE · ILIKE · NOT LIKE <span class="dim">(you supply the %)</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">
+            <b>Saved filters.</b> Name a filter set and reload it later from the filter bar. Saved filters
+            belong to the connection and travel with a <a href="#portable">portable workspace</a>.
+          </p>
+        </section>
+
+        <section class="feature" id="search">
+          <h3>Search omnibox</h3>
+          <p>
+            For a quick search, type into the omnibox above the grid. A bare word searches every column.
+            Prefix it with a column name to narrow it. Terms are combined with AND.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <div class="omnibox">
+                <svg class="ic"><use href="#i-search" /></svg
+                ><span class="ainput grow">status:=shipped total:&gt;500 "gift wrap"</span>
+              </div>
+              <table class="agrid m-grid">
+                <thead>
+                  <tr>
+                    <th class="rownum"></th>
+                    <th><span class="tname">id</span></th>
+                    <th><span class="tname">status</span></th>
+                    <th><span class="tname">total</span></th>
+                    <th><span class="tname">note</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rownum">1</td>
+                    <td class="mono-cell">10481</td>
+                    <td>shipped</td>
+                    <td class="mono-cell">1120.50</td>
+                    <td>Add <mark>gift wrap</mark>, no invoice</td>
+                  </tr>
+                  <tr>
+                    <td class="rownum">2</td>
+                    <td class="mono-cell">10466</td>
+                    <td>shipped</td>
+                    <td class="mono-cell">640.25</td>
+                    <td><mark>Gift wrap</mark> both parcels</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption>
+              Three terms, ANDed: an exact status, a numeric comparison and a phrase that can appear in any
+              column.
+            </figcaption>
+          </figure>
+          <table class="ref">
+            <thead>
+              <tr>
+                <th>You type</th>
+                <th>It finds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>hammer</code></td>
+                <td>Rows where any column contains “hammer”</td>
+              </tr>
+              <tr>
+                <td><code>"two words"</code></td>
+                <td>Any column containing the whole phrase</td>
+              </tr>
+              <tr>
+                <td><code>name:ham</code></td>
+                <td><code>name</code> contains “ham”</td>
+              </tr>
+              <tr>
+                <td><code>qty:&gt;20</code></td>
+                <td>
+                  <code>qty</code> greater than 20, compared as a number (also <code>&lt;</code>,
+                  <code>&gt;=</code>, <code>&lt;=</code>, <code>!=</code>)
+                </td>
+              </tr>
+              <tr>
+                <td><code>status:=active</code></td>
+                <td><code>status</code> exactly equals “active”</td>
+              </tr>
+              <tr>
+                <td><code>note:~^a.*z$</code></td>
+                <td><code>note</code> matches the regex</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">
+            A <code>word:</code> prefix that isn't a real column is treated as plain text, so pasting a URL or
+            a timestamp still works.
+          </p>
+        </section>
+
+        <section class="feature" id="editing">
+          <h3>Editing rows</h3>
+          <p>
+            Edits don't hit the database as you type. Change a cell, insert or clone a row, set a value to
+            NULL or mark rows for deletion. Each change is highlighted where it happened, and then all of them
+            are written at once with <b>Apply</b>, in one transaction.
+          </p>
+          <div class="viz viz-stage demo">
+            <table class="mgrid">
+              <thead>
+                <tr>
+                  <th class="rownum"></th>
+                  <th>id</th>
+                  <th>status</th>
+                  <th>total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="rownum">1</td>
+                  <td>10482</td>
+                  <td>delivered</td>
+                  <td>249.00</td>
+                </tr>
+                <tr>
+                  <td class="rownum">2</td>
+                  <td>10481</td>
+                  <td class="mod">shipped</td>
+                  <td class="mod">1120.50</td>
+                </tr>
+                <tr class="deleted">
+                  <td class="rownum">3</td>
+                  <td>10433</td>
+                  <td>cancelled</td>
+                  <td>61.20</td>
+                </tr>
+                <tr class="added">
+                  <td class="rownum">+</td>
+                  <td class="null">auto</td>
+                  <td>pending</td>
+                  <td>89.00</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="s-foot">
+              <span>4 changes staged</span>
+              <span class="spacer"></span>
+              <span class="abtn text sm"
+                ><svg class="ic"><use href="#i-copy" /></svg>SQL</span
+              >
+              <span class="abtn text sm primary">Apply</span>
+            </div>
+          </div>
+          <ul class="points">
+            <li>
+              <b>Review first.</b> Copy the staged changes as SQL to read them, or to run them somewhere else.
+            </li>
+            <li><b>Bulk delete.</b> Select rows in the row-number gutter and delete them together.</li>
+            <li>
+              <b>Choices, not codes.</b> Enum columns and foreign keys are edited with a picker that searches
+              the referenced table by its label. You can still paste a raw key.
+            </li>
+          </ul>
+        </section>
+
+        <section class="feature" id="values">
+          <h3>Values you can trust</h3>
+          <p>
+            A grid is only useful if you can tell values apart. FairwayDB never draws two different values the
+            same way:
+          </p>
+          <div class="values demo">
+            <div><span class="v-null">NULL</span><small>a real NULL</small></div>
+            <div><span class="v-empty"></span><small>an empty string</small></div>
+            <div><span class="v-text">NULL</span><small>the text “NULL”</small></div>
+            <div><span class="v-bool">true</span><small>a boolean</small></div>
+            <div><span class="v-text">true</span><small>the text “true”</small></div>
+            <div><span class="v-num">42</span><small>a number</small></div>
+          </div>
+        </section>
+
+        <section class="feature" id="json">
+          <h3>JSON panel</h3>
+          <p>
+            Click a <code>json</code> or <code>jsonb</code> cell and it opens in a side panel as a tree that
+            still reads as JSON, with braces, quoted keys and syntax colour. There's no separate tree mode and
+            text mode to switch between.
+          </p>
+          <pre class="viz viz-json demo"><span class="p">{</span>
+  <span class="k">"customer"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">"id"</span><span class="p">:</span> <span class="n">4812</span><span class="p">,</span>
+    <span class="k">"tier"</span><span class="p">:</span> <span class="s">"gold"</span><span class="p">,</span>
+    <span class="k">"verified"</span><span class="p">:</span> <span class="b">true</span>
+  <span class="p">},</span>
+  <span class="k">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s">"gift"</span><span class="p">,</span> <span class="s">"rush"</span><span class="p">],</span>
+  <span class="k">"note"</span><span class="p">:</span> <span class="b">null</span>
+<span class="p">}</span></pre>
+          <ul class="points">
+            <li>Fold any object or array from the gutter.</li>
+            <li>Filter keys and values with text or a <code>/regex/</code>.</li>
+            <li>Edit values in place. The change is staged like any other cell edit.</li>
+            <li>Copy the path to any node.</li>
+          </ul>
+        </section>
+
+        <section class="feature" id="links">
+          <h3>Foreign keys &amp; magic columns</h3>
+          <p>
+            A foreign-key cell carries a jump icon
+            <span class="inline-ic"
+              ><svg class="ic"><use href="#i-external-link" /></svg></span
+            >. Click it to open the referenced table filtered to that row. In the JSON panel, foreign keys
+            show as chips that expand to show the row they point to.
+          </p>
+          <p>
+            <b>Magic columns</b> turn query results into visual cells. Alias a column with a suffix and the
+            grid renders it for you:
+          </p>
+          <table class="ref">
+            <thead>
+              <tr>
+                <th>Alias ends in</th>
+                <th>Renders as</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>__format__stars</code></td>
+                <td>
+                  <span class="stars">★★★<span>★★</span></span> for 0–5
+                </td>
+              </tr>
+              <tr>
+                <td><code>__format__progress</code></td>
+                <td>
+                  <span class="bar"><i style="width: 64%"></i></span> for 0–100
+                </td>
+              </tr>
+              <tr>
+                <td><code>__format__check</code></td>
+                <td>✓ / ✗</td>
+              </tr>
+              <tr>
+                <td><code>__format__money</code> · <code>__format__number</code></td>
+                <td>$1,234.50 · 1,234,567</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>__format__image</code> · <code>__format__url</code> · <code>__format__email</code>
+                </td>
+                <td>An inline thumbnail, a clickable link, a mailto link</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>__link__users</code> <span class="dim">or</span> <code>__link__users__uid</code>
+                </td>
+                <td>
+                  A button that opens <code>users</code> filtered on <code>id</code> (or <code>uid</code>)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pre
+            class="snippet"
+          ><span class="kw">select</span> name, score <span class="kw">as</span> score__format__stars, owner_id <span class="kw">as</span> owner__link__users
+<span class="kw">from</span> reviews;</pre>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <table class="agrid m-grid">
+                <thead>
+                  <tr>
+                    <th class="rownum"></th>
+                    <th><span class="tname">name</span></th>
+                    <th><span class="tname">score</span></th>
+                    <th><span class="tname">owner</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rownum">1</td>
+                    <td>Nimbus kettle</td>
+                    <td>
+                      <span class="stars">★★★★<span>★</span></span>
+                    </td>
+                    <td><span class="m-jump">users 42 ↗</span></td>
+                  </tr>
+                  <tr>
+                    <td class="rownum">2</td>
+                    <td>Fold-flat crate</td>
+                    <td>
+                      <span class="stars">★★<span>★★★</span></span>
+                    </td>
+                    <td><span class="m-jump">users 7 ↗</span></td>
+                  </tr>
+                  <tr>
+                    <td class="rownum">3</td>
+                    <td>Trail lamp</td>
+                    <td><span class="stars">★★★★★</span></td>
+                    <td><span class="m-jump">users 113 ↗</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption>
+              The query above, rendered: the suffixes are stripped from the headers, and each owner opens
+              <code>users</code> on that id.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="feature" id="export">
+          <h3>Export</h3>
+          <p>
+            Export what you're looking at, with its filters applied, or the whole table as <b>CSV</b>,
+            <b>JSON</b> or <b>SQL</b>. To dump an entire schema, use the sidebar's
+            <a href="#browser">schema dump</a>.
+          </p>
+          <figure class="example">
+            <div class="m-exports" aria-hidden="true">
+              <div>
+                <span class="m-fmt">CSV</span>
+                <pre>
+id,status,total
+10481,shipped,1120.50
+10466,shipped,640.25</pre>
+              </div>
+              <div>
+                <span class="m-fmt">JSON</span>
+                <pre>
+[
+  { "id": 10481, "status": "shipped", "total": "1120.50" },
+  { "id": 10466, "status": "shipped", "total": "640.25" }
+]</pre>
+              </div>
+              <div>
+                <span class="m-fmt">SQL</span>
+                <pre><span class="kw">INSERT INTO</span> public.orders (id, status, total)
+<span class="kw">VALUES</span> (<span class="num">10481</span>, <span class="str">'shipped'</span>, <span class="num">1120.50</span>);
+<span class="kw">INSERT INTO</span> public.orders (id, status, total)
+<span class="kw">VALUES</span> (<span class="num">10466</span>, <span class="str">'shipped'</span>, <span class="num">640.25</span>);</pre>
+              </div>
+            </div>
+            <figcaption>The same two filtered rows of <code>orders</code> in each format.</figcaption>
+          </figure>
+        </section>
+
+        <!-- Writing SQL ======================================================= -->
+        <h2 class="doc-part">Writing SQL</h2>
+
+        <section class="feature" id="editor">
+          <h3>SQL editor</h3>
+          <p>
+            <span class="kbd">⌘</span><span class="kbd">T</span> opens a query tab. The editor autocompletes
+            from your schema, so table and column names come from the database rather than guesswork. Results
+            land in the same grid as a table, with the JSON panel, foreign-key jumps and magic columns all
+            working.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true" data-sql-demo>
+              <div class="m-editor">
+                <div class="m-gutter" data-sql-gutter>1<br />2<br />3<br />4<br />5<br />6<br />7</div>
+                <pre
+                  data-sql-code
+                ><span class="kw">select</span> c.name, <span class="fn">count</span>(*) <span class="kw">as</span> orders
+<span class="kw">from</span> customers c
+<span class="kw">join</span> orders o <span class="kw">on</span> o.customer_id = c.id
+<span class="kw">where</span> o.status = <span class="str">'delivered'</span>
+<span class="kw">group by</span> c.name
+<span class="kw">order by</span> orders <span class="kw">desc</span>
+<span class="kw">limit</span> <span class="num">4</span>;</pre>
+                <div class="m-complete" data-sql-complete hidden></div>
+              </div>
+              <div class="m-status">
+                <span class="m-run" data-sql-run>⌘↵ Run</span><span>⇧⌘F Format</span
+                ><span class="spacer"></span><span data-sql-meta>4 rows in 9 ms</span>
+              </div>
+              <div class="m-results" data-sql-results>
+                <table class="agrid m-grid">
+                  <thead>
+                    <tr>
+                      <th class="rownum"></th>
+                      <th><span class="tname">name</span><span class="ttype">text</span></th>
+                      <th><span class="tname">orders</span><span class="ttype">int8</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="rownum">1</td>
+                      <td>Ada Lovelace</td>
+                      <td class="mono-cell">11</td>
+                    </tr>
+                    <tr>
+                      <td class="rownum">2</td>
+                      <td>Grace Hopper</td>
+                      <td class="mono-cell">9</td>
+                    </tr>
+                    <tr>
+                      <td class="rownum">3</td>
+                      <td>Alan Turing</td>
+                      <td class="mono-cell">7</td>
+                    </tr>
+                    <tr>
+                      <td class="rownum">4</td>
+                      <td>Katherine Johnson</td>
+                      <td class="mono-cell">6</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <figcaption>
+              Completion offers tables as you name them and, after <code>o.</code>, the columns of
+              <code>orders</code>. <span class="kbd">⌘</span><span class="kbd">↵</span> runs it into the grid
+              below.
+            </figcaption>
+          </figure>
+          <table class="ref keys-ref">
+            <tbody>
+              <tr>
+                <td><span class="kbd">⌘</span><span class="kbd">↵</span></td>
+                <td>Run</td>
+              </tr>
+              <tr>
+                <td><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">↵</span></td>
+                <td>Run the entire buffer</td>
+              </tr>
+              <tr>
+                <td><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">F</span></td>
+                <td>Format SQL</td>
+              </tr>
+              <tr>
+                <td><span class="kbd">⌘</span><span class="kbd">F</span></td>
+                <td>Find &amp; replace</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note">
+            On a <a href="#safety">read-only connection</a>, everything you run goes through a read-only
+            transaction.
+          </p>
+        </section>
+
+        <section class="feature" id="history">
+          <h3>History &amp; saved queries</h3>
+          <p>
+            Every query you run is recorded, including failures, with its timing or error. Filter the history
+            with text or <code>/regex/</code>. Click an entry to load it into the editor, or double-click to
+            run it again.
+          </p>
+          <div class="viz viz-hist demo">
+            <div class="h-row">
+              <span class="h-ok"></span><code>select * from orders where status …</code><small>6 ms</small>
+            </div>
+            <div class="h-row">
+              <span class="h-err"></span><code>update orders set total = …</code><small>read-only</small>
+            </div>
+            <div class="h-row">
+              <span class="h-ok"></span><code>explain analyze select c.name …</code><small>41 ms</small>
+            </div>
+          </div>
+          <p>
+            Save the queries you'll need again. They show up in the <a href="#palette">command palette</a> and
+            travel with a <a href="#portable">portable workspace</a>.
+          </p>
+        </section>
+
+        <!-- Understanding a schema ============================================ -->
+        <h2 class="doc-part">Understanding a schema</h2>
+
+        <section class="feature" id="structure">
+          <h3>Structure</h3>
+          <p>
+            The structure tab shows everything that defines a table in one place: columns with primary-key and
+            inherited markers, foreign keys, indexes and reconstructed DDL. <em>Extends</em> and
+            <em>Extended by</em> link to parent and child tables through inheritance and partitioning.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <div class="m-struct">
+                <h4>Columns</h4>
+                <table class="agrid m-grid">
+                  <thead>
+                    <tr>
+                      <th><span class="tname">name</span></th>
+                      <th><span class="tname">type</span></th>
+                      <th><span class="tname">nullable</span></th>
+                      <th><span class="tname">default</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="m-key">PK</span>id</td>
+                      <td class="mono-cell">int4</td>
+                      <td>no</td>
+                      <td class="mono-cell">nextval('orders_id_seq')</td>
+                    </tr>
+                    <tr>
+                      <td>customer_id</td>
+                      <td class="mono-cell">int4</td>
+                      <td>no</td>
+                      <td class="null">none</td>
+                    </tr>
+                    <tr>
+                      <td>status</td>
+                      <td class="mono-cell">order_status</td>
+                      <td>no</td>
+                      <td class="mono-cell">'pending'</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h4>Foreign keys</h4>
+                <p class="m-line mono">customer_id → <span class="m-chip">customers.id</span></p>
+                <h4>Indexes</h4>
+                <p class="m-line mono">
+                  orders_pkey <span class="dim">UNIQUE (id)</span> · orders_status_idx
+                  <span class="dim">(status, created_at)</span>
+                </p>
+                <h4>CREATE TABLE</h4>
+                <pre><span class="kw">CREATE TABLE</span> public.orders (
+  id <span class="kw">integer</span> <span class="kw">NOT NULL</span> <span class="kw">DEFAULT</span> <span class="fn">nextval</span>(<span class="str">'orders_id_seq'</span>),
+  customer_id <span class="kw">integer</span> <span class="kw">NOT NULL</span> <span class="kw">REFERENCES</span> customers(id),
+  …
+);</pre>
+              </div>
+            </div>
+            <figcaption>The structure of <code>orders</code>, trimmed.</figcaption>
+          </figure>
+        </section>
+
+        <section class="feature" id="erd">
+          <h3>ERD</h3>
+          <p>
+            Draw an entire schema as an entity-relationship diagram. Each table is a card, and each edge
+            connects the exact foreign-key column to the primary-key column it references. Pan the canvas,
+            spotlight one table to fade the rest, and hide tables you don't need.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <div class="viz-graph m-erd">
+                <svg viewBox="0 0 560 190">
+                  <g class="edge">
+                    <path d="M206 66 C 250 66, 250 46, 290 46" />
+                    <path d="M206 46 C 250 46, 250 142, 290 142" />
+                  </g>
+                  <g class="gnode">
+                    <rect x="56" y="10" width="150" height="106" rx="6" />
+                    <text x="68" y="27" class="t">orders</text>
+                    <path class="sep" d="M56 35 H206" />
+                    <text x="68" y="50" class="s"><tspan class="hl">id</tspan></text>
+                    <text x="194" y="50" class="s ty" text-anchor="end">int4</text>
+                    <text x="68" y="70" class="s"><tspan class="hl">customer_id</tspan></text>
+                    <text x="194" y="70" class="s ty" text-anchor="end">int4</text>
+                    <text x="68" y="90" class="s"><tspan>status</tspan></text>
+                    <text x="194" y="90" class="s ty" text-anchor="end">enum</text>
+                    <text x="68" y="110" class="s"><tspan>total</tspan></text>
+                    <text x="194" y="110" class="s ty" text-anchor="end">numeric</text>
+                  </g>
+                  <g class="gnode">
+                    <rect x="290" y="10" width="150" height="86" rx="6" />
+                    <text x="302" y="27" class="t">customers</text>
+                    <path class="sep" d="M290 35 H440" />
+                    <text x="302" y="50" class="s"><tspan class="hl">id</tspan></text>
+                    <text x="428" y="50" class="s ty" text-anchor="end">int4</text>
+                    <text x="302" y="70" class="s"><tspan>name</tspan></text>
+                    <text x="428" y="70" class="s ty" text-anchor="end">text</text>
+                    <text x="302" y="90" class="s"><tspan>email</tspan></text>
+                    <text x="428" y="90" class="s ty" text-anchor="end">text</text>
+                  </g>
+                  <g class="gnode">
+                    <rect x="290" y="106" width="150" height="86" rx="6" />
+                    <text x="302" y="123" class="t">line_items</text>
+                    <path class="sep" d="M290 131 H440" />
+                    <text x="302" y="146" class="s"><tspan class="hl">order_id</tspan></text>
+                    <text x="428" y="146" class="s ty" text-anchor="end">int4</text>
+                    <text x="302" y="166" class="s"><tspan>product_id</tspan></text>
+                    <text x="428" y="166" class="s ty" text-anchor="end">int4</text>
+                    <text x="302" y="186" class="s"><tspan>qty</tspan></text>
+                    <text x="428" y="186" class="s ty" text-anchor="end">int4</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <figcaption>
+              Edges leave from the foreign-key column’s row and land on the key it references.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="feature" id="related">
+          <h3>Related rows</h3>
+          <p>
+            Start from one row and see everything linked to it. Its children appear below, and their parents
+            above. Pure join tables collapse into direct links, and composite keys work.
+          </p>
+          <div class="viz viz-graph demo">
+            <svg viewBox="0 0 460 206" aria-hidden="true">
+              <g class="edge">
+                <path d="M130 103 C 160 103, 160 37, 188 37" />
+                <path d="M130 103 H 188" />
+                <path d="M130 103 C 160 103, 160 169, 188 169" />
+              </g>
+              <g class="edge up">
+                <path d="M306 37 H 336" />
+                <path d="M306 169 H 336" />
+              </g>
+              <g class="gnode root">
+                <rect x="14" y="79" width="116" height="48" rx="7" />
+                <text x="26" y="99" class="t">orders</text>
+                <text x="26" y="115" class="s">#10481 · shipped</text>
+              </g>
+              <g class="gnode">
+                <rect x="188" y="13" width="118" height="48" rx="7" />
+                <text x="200" y="33" class="t">line_items</text>
+                <text x="200" y="49" class="s">3 rows</text>
+              </g>
+              <g class="gnode">
+                <rect x="188" y="79" width="118" height="48" rx="7" />
+                <text x="200" y="99" class="t">payments</text>
+                <text x="200" y="115" class="s">1 row</text>
+              </g>
+              <g class="gnode">
+                <rect x="188" y="145" width="118" height="48" rx="7" />
+                <text x="200" y="165" class="t">shipments</text>
+                <text x="200" y="181" class="s">2 rows</text>
+              </g>
+              <g class="gnode up">
+                <rect x="336" y="13" width="110" height="48" rx="7" />
+                <text x="348" y="33" class="t">products</text>
+                <text x="348" y="49" class="s">3 rows</text>
+              </g>
+              <g class="gnode up">
+                <rect x="336" y="145" width="110" height="48" rx="7" />
+                <text x="348" y="165" class="t">carriers</text>
+                <text x="348" y="181" class="s">1 row</text>
+              </g>
+            </svg>
+          </div>
+          <ul class="points">
+            <li>Set how many hops to follow and how many rows to fetch per link.</li>
+            <li>Drag and resize the cards.</li>
+            <li>A capped card links out to the full result in a normal table tab.</li>
+          </ul>
+        </section>
+
+        <section class="feature" id="assistant">
+          <h3>AI assistant</h3>
+          <p>
+            Open the assistant
+            <span class="inline-ic"
+              ><svg class="ic"><use href="#i-sparkles" /></svg
+            ></span>
+            and ask in plain English. It uses read-only tools to list schemas and tables, describe a table and
+            run a <code>SELECT</code>, so its answers come from your actual schema rather than a guess at
+            column names.
+          </p>
+          <div class="viz viz-chat demo">
+            <div class="chat-head">
+              <svg class="ic spark"><use href="#i-sparkles" /></svg><b>Assistant</b
+              ><span class="spacer"></span><svg class="ic"><use href="#i-x" /></svg>
+            </div>
+            <div class="chat-body">
+              <div class="bubble me">How many orders shipped late last month?</div>
+              <div class="tools">
+                <span class="tool"
+                  ><svg class="ic"><use href="#i-wrench" /></svg>describe_table · orders</span
+                >
+                <span class="tool"
+                  ><svg class="ic"><use href="#i-wrench" /></svg>run_sql · 1 row</span
+                >
+              </div>
+              <div class="reply">
+                <div class="code">
+                  <div class="code-bar">
+                    <span>SQL</span><span class="spacer"></span
+                    ><span class="cbtn"
+                      ><svg class="ic"><use href="#i-copy" /></svg>Copy</span
+                    ><span class="cbtn"
+                      ><svg class="ic"><use href="#i-code" /></svg>Insert</span
+                    ><span class="cbtn"
+                      ><svg class="ic"><use href="#i-play" /></svg>Run</span
+                    >
+                  </div>
+                  <pre><span class="kw">select</span> <span class="fn">count</span>(*) <span class="kw">from</span> orders
+<span class="kw">where</span> delivered_at &gt; promised_at
+  <span class="kw">and</span> delivered_at &gt;= <span class="fn">date_trunc</span>(<span class="str">'month'</span>, <span class="fn">now</span>()) - <span class="kw">interval</span> <span class="str">'1 month'</span>;</pre>
+                </div>
+                <p><b>38 orders</b> arrived after their promised date.</p>
+              </div>
+            </div>
+            <div class="chat-input">
+              Ask about your schema…<span class="send"
+                ><svg class="ic"><use href="#i-send-horizontal" /></svg
+              ></span>
+            </div>
+          </div>
+          <ul class="points">
+            <li>Replies stream in, and every tool call it makes is shown.</li>
+            <li>SQL in a reply comes with <em>Copy</em>, <em>Insert into editor</em> and <em>Run</em>.</li>
+            <li>
+              Every query it runs uses a <code>READ ONLY</code> transaction. It can look, but it can't change
+              anything.
+            </li>
+            <li>
+              Bring your own Anthropic API key, or point it at a LiteLLM or other Anthropic-compatible proxy.
+              The key is sealed like a password and never reaches the UI.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Making it yours =================================================== -->
+        <h2 class="doc-part">Making it yours</h2>
+
+        <section class="feature" id="portable">
+          <h3>Portable workspaces</h3>
+          <p>
+            Set up staging the way you like, then take the setup to production. Export a connection's pins,
+            saved filters, table views and saved queries to one JSON file, and import it onto another database
+            with the same shape.
+          </p>
+          <figure class="example">
+            <div class="mock" aria-hidden="true">
+              <div class="m-ws">
+                <div class="m-ws-head">
+                  <span class="m-link">Select none</span><span>In shop_staging</span><span>In file</span>
+                </div>
+                <div class="on">
+                  <i>✓</i><span>Pinned tables<small>The pin board and its categories, in order</small></span
+                  ><span>12</span><span>9</span>
+                </div>
+                <div class="on">
+                  <i>✓</i><span>Saved filters<small>Named filter sets, per table</small></span
+                  ><span>7</span><span class="m-clash">4</span>
+                </div>
+                <div class="on">
+                  <i>✓</i
+                  ><span
+                    >Table views<small
+                      >Column order, widths, hidden and dot-walked columns, and sort</small
+                    ></span
+                  ><span>18</span><span>18</span>
+                </div>
+                <div>
+                  <i></i
+                  ><span
+                    >Saved queries<small>Named SQL, shared by every connection on this machine</small></span
+                  ><span>23</span><span>—</span>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Importing <code>shop_prod.fairwaydb.json</code> onto staging. Amber marks counts that would
+              overwrite something already there.
+            </figcaption>
+          </figure>
+          <ul class="points">
+            <li>One panel shows what each side holds before anything moves.</li>
+            <li>Choose which sections to include.</li>
+            <li>An import overwrites only what the file names and leaves everything else alone.</li>
+          </ul>
+        </section>
+
+        <section class="feature" id="settings">
+          <h3>Settings &amp; theme</h3>
+          <p>
+            Dark mode is the default and what the app is designed around. Light mode is one click away in the
+            title bar. Settings, reachable from the palette, hold the assistant's API key, model and proxy
+            URL, plus a statement timeout for what you run in the SQL editor.
+          </p>
+          <figure class="example">
+            <div class="mock narrow" aria-hidden="true">
+              <div class="m-settings">
+                <b>Settings</b>
+                <h4>Assistant</h4>
+                <div class="m-form">
+                  <label>Anthropic API key</label><span class="ainput">(unchanged)</span> <label>Model</label
+                  ><span class="ainput mono">claude-sonnet-5</span> <label>API base URL</label
+                  ><span class="ainput">https://litellm.internal.example</span>
+                </div>
+                <h4>SQL</h4>
+                <div class="m-form">
+                  <label>Statement timeout</label><span class="ainput mono">30000</span>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              A saved key reads back as <em>(unchanged)</em>: it never leaves the local server.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="feature" id="shortcuts">
+          <h3>Keyboard shortcuts</h3>
+          <p>
+            Every binding lives in one registry, so the cheat sheet behind
+            <span class="kbd">⌘</span><span class="kbd">/</span> always matches what the keys do. On Windows
+            and Linux, read <span class="kbd">⌘</span> as <span class="kbd">Ctrl</span>.
+          </p>
+          <div class="shortcut-groups">
+            <table class="ref keys-ref">
+              <caption>
+                Workspace
+              </caption>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="kbd">⌘</span><span class="kbd">K</span> / <span class="kbd">⌘</span
+                    ><span class="kbd">P</span>
+                  </td>
+                  <td>Command palette</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">/</span></td>
+                  <td>Keyboard shortcuts</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">R</span></td>
+                  <td>Refresh: reload rows, re-run the query, or reload metadata</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">F</span></td>
+                  <td>Find: search rows, or find in SQL</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">esc</span></td>
+                  <td>Close the palette or a dialog</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">N</span></td>
+                  <td>New window</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="ref keys-ref">
+              <caption>
+                Tabs
+              </caption>
+              <tbody>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">T</span></td>
+                  <td>New SQL query tab</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">W</span></td>
+                  <td>Close tab</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">1</span>–<span class="kbd">8</span></td>
+                  <td>Go to tab</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">9</span></td>
+                  <td>Go to last tab</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="ref keys-ref">
+              <caption>
+                SQL editor
+              </caption>
+              <tbody>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">↵</span></td>
+                  <td>Run</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">↵</span></td>
+                  <td>Run entire buffer</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⇧</span><span class="kbd">⌘</span><span class="kbd">F</span></td>
+                  <td>Format SQL</td>
+                </tr>
+                <tr>
+                  <td><span class="kbd">⌘</span><span class="kbd">F</span></td>
+                  <td>Find &amp; replace</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="doc-cta">
+          <img src="assets/icon.png" alt="" width="48" height="48" />
+          <div>
+            <b>Try it on your own database.</b>
+            <span>Free for macOS, Windows and Linux, and MIT licensed.</span>
+          </div>
+          <a class="btn btn-primary" href="index.html#download">Download</a>
+        </aside>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span class="brand small"><img src="assets/icon.png" alt="" width="20" height="20" />FairwayDB</span>
+        <span class="dim">© 2026 Vahagn Sargsyan · MIT License</span>
+        <nav aria-label="Footer">
+          <a href="features.html">Features</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases">GitHub</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases/issues">Issues</a>
+          <a href="https://github.com/vahagnsarg/FairwayDB-releases/releases">Releases</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="js/lib/filter.js" defer></script>
+    <script src="js/lib/html.js" defer></script>
+    <script src="js/lib/motion.js" defer></script>
+    <script src="js/toc.js" defer></script>
+    <script src="js/demos/palette.js" defer></script>
+    <script src="js/demos/sql.js" defer></script>
+  </body>
+</html>

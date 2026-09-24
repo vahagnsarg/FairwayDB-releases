@@ -1,0 +1,284 @@
+/* Tokens, reset, type, buttons, section headings and the footer: what every
+   page of the site needs, loaded first. Brand colours come from the icon
+   (forest + cream) and the app's own accent green; app.css reuses the app's
+   dark tokens, declared here with the rest. */
+
+:root {
+  --bg: #0a100e;
+  --bg-2: #0e1613;
+  --surface: #111a17;
+  --surface-2: #16211d;
+  --line: rgba(232, 223, 201, 0.08);
+  --line-2: rgba(232, 223, 201, 0.14);
+  --text: #eee9dc;
+  --text-2: #b4b3a8;
+  --text-3: #7d8480;
+  --cream: #e8dfc9;
+  --forest: #12302a;
+  --accent: #3fb454;
+  --accent-2: #6cd47f;
+  --accent-ink: #04200c;
+
+  /* the app's tokens (src/styles/tokens.css) */
+  --app-bg: #1c1e22;
+  --app-panel: #23262b;
+  --app-raised: #2b2f36;
+  --app-border: #3a3f47;
+  --app-grid: #2a2d33;
+  --app-sel: #2f3a4a;
+  --app-text: #d7dae0;
+  --app-dim: #8a919c;
+  --blue: #61afef;
+  --amber: #d9a441;
+  --red: #e06c75;
+  --green: #6cc070;
+  --purple: #c678dd;
+  --cyan: #56b6c2;
+
+  --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --radius: 14px;
+
+  /* the app's own palette, for the window and the feature cards */
+  --a-bg: #1c1e22;
+  --a-panel: #23262b;
+  --a-raised: #2b2f36;
+  --a-hover: #33383f;
+  --a-border: #3a3f47;
+  --a-line: #2a2d33;
+  --a-sel: #2f3a4a;
+  --a-text: #d7dae0;
+  --a-dim: #8a919c;
+  --a-mono: 'SF Mono', Menlo, Consolas, 'Geist Mono', monospace;
+  --a-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Geist', sans-serif;
+  --conn: #e8b339;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+p {
+  margin: 0;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.dim {
+  color: var(--text-3);
+}
+
+.i {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+/* the sprite js/icons.js writes into <body>: present, never drawn */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.4em;
+  border: 1px solid var(--line-2);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font:
+    500 0.8em/1 -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    var(--mono);
+  color: var(--text);
+}
+
+/* Buttons ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s,
+    box-shadow 0.15s;
+  white-space: nowrap;
+}
+
+.btn-sm {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 14px;
+  border-radius: 9px;
+}
+
+.btn-lg {
+  height: 48px;
+  padding: 0 22px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow:
+    0 0 0 1px rgba(108, 212, 127, 0.4) inset,
+    0 8px 30px -8px rgba(63, 180, 84, 0.6);
+}
+
+.btn-primary:hover {
+  background: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  border-color: var(--line-2);
+  background: rgba(232, 223, 201, 0.03);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  background: rgba(232, 223, 201, 0.07);
+  border-color: rgba(232, 223, 201, 0.24);
+}
+
+/* Sections ----------------------------------------------------------------- */
+
+.section {
+  position: relative;
+  padding: 120px 0 0;
+}
+
+.eyebrow {
+  font: 500 13px/1 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.section h2 {
+  margin-top: 16px;
+  max-width: 720px;
+  font-size: clamp(32px, 4.2vw, 48px);
+  letter-spacing: -0.035em;
+}
+
+.section-lede {
+  margin-top: 18px;
+  max-width: 620px;
+  font-size: 17px;
+  color: var(--text-2);
+}
+
+/* Footer ------------------------------------------------------------------- */
+
+.footer {
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 72px;
+}
+
+.footer-inner .dim {
+  margin-right: auto;
+}
+
+.footer nav {
+  display: flex;
+  gap: 20px;
+  color: var(--text-2);
+}
+
+.footer nav a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 680px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .section {
+    padding-top: 88px;
+  }
+  .footer-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    gap: 12px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .btn {
+    transition: none;
+  }
+}
